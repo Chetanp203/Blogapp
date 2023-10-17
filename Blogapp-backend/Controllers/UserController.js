@@ -16,14 +16,9 @@ export const register= async (req,res) =>{
         }
 
         const user = new UserModel({name , email , password});
-
-        // console.log(user);
         await user.save();
 
         return res.json({success:true,message:"User Registered Succefully..."})
-
-
-
     }catch(error){
         return res.send({success: false,message: error})
     }
@@ -32,7 +27,7 @@ export const register= async (req,res) =>{
 export const login = async(req,res)=>{
     try{
         // const {userData}=req.body
-        const{email, password}= req.body;
+        const{email, password}= req.body.data;
         if (!email || !password) return res.json({success:false ,message:"All fields are mandatory.."})
          
         const user = await UserModel.findOne({email})
